@@ -2,49 +2,47 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [coins, setCoins] = useState([]);
-  const [haveMoney, setHaveMoney] = useState(0);
-  const [rate, setRate] = useState(0);
-  const onInputChange = (inputData) => {
-    const userInput = inputData.target.value;
-    setHaveMoney(userInput);
+  const [movies, setMovies] = useState([]);
+  const getMovies = async () => {
+    const response = await fetch(
+      "https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=d03c23d6eaf9db44f392bcd814e4efa0"
+    );
+    const json = await response.json();
+    setMovies(json.movieListResult.movieList);
+    setLoading(false);
   };
-  const onChange = (obj) => {
-    setRate(obj.target.value);
-  };
-  console.log(haveMoney);
   useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers")
-      .then((response) => response.json())
-      .then((json) => {
-        setCoins(json);
-        setLoading(false);
-      });
+    getMovies();
+    // fetch(
+    //   "https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=d03c23d6eaf9db44f392bcd814e4efa0"
+    // )
+    //   .then((response) => response.json())
+    //   .then((json) => {
+    //     setMovies(json.movieListResult.movieList);
+    //     setLoading(false);
+    //   });
   }, []);
-
-  console.log(coins);
+  console.log(movies);
   return (
     <div>
-      <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
       {loading ? (
-        <strong>Loading...</strong>
+        <h1>Loading...</h1>
       ) : (
-        <div>
-          <select onChange={onChange}>
-            {coins.map((coin) => (
-              <option key={coin.id} value={coin.quotes.USD.price}>
-                {coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD
-              </option>
-            ))}
-          </select>
-          <div>
-            <input type="number" onChange={onInputChange}></input>
-            <span>{haveMoney / Math.round(+rate)}</span>
+        movies.map((movie) => (
+          <div key={movie.movieCd}>
+            <h2>{movie.movieNm}</h2>
+            <p>{movie.movieNmEn}</p>
+            <ul>
+              {movie.directors?.map((d, index) => (
+                <li key={index}>{d.peopleNm}</li>
+              ))}
+            </ul>
           </div>
-        </div>
+        ))
       )}
     </div>
   );
 }
 
 export default App;
+//d03c23d6eaf9db44f392bcd814e4efa0
