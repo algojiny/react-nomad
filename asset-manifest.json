@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react-nomad/static/js/main.9a12d166.js",
+    "main.js": "/react-nomad/static/js/main.b64f97ab.js",
     "index.html": "/react-nomad/index.html",
-    "main.9a12d166.js.map": "/react-nomad/static/js/main.9a12d166.js.map"
+    "main.b64f97ab.js.map": "/react-nomad/static/js/main.b64f97ab.js.map"
   },
   "entrypoints": [
-    "static/js/main.9a12d166.js"
+    "static/js/main.b64f97ab.js"
   ]
 }
