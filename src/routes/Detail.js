@@ -19,20 +19,18 @@ function Detail() {
   }, []);
 
   function Genres() {
-    console.log(movie.genres[0].genreNm);
-    console.log(movie);
-    let list = [];
+    let lists = [];
     let i;
     for (i = 0; i < movie.genres.length; i++) {
-      list.push(movie.genres[i]);
+      lists.push(movie.genres[i].genreNm);
     }
+    // console.log(lists);
     return (
-      <p>
-        장르:
-        {list.map((l) => (
-          <span key={l.genreNm}>{l.genreNm}</span>
+      <span>
+        {lists.map((list) => (
+          <span key={list}>{list} </span>
         ))}
-      </p>
+      </span>
     );
   }
 
@@ -48,7 +46,9 @@ function Detail() {
           <h2>{movie.movieNmOg}</h2>
           <p>{`연도: ${movie.prdtYear}`}</p>
           <p>{`장편 or 단편: ${movie.typeNm}`}</p>
-          <Genres />
+          <p>
+            장르: <Genres />
+          </p>
         </div>
       )}
     </div>
